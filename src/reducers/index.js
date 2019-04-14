@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
+import itemsReducer from "./itemsReducer";
 
 export default combineReducers({
-  msg: () => "hi"
+  items: itemsReducer
 });

@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { addQuantity, removeQuantity, remove } from "../actions";
 
 class Cart extends Component {
+  handleAddQuantity = id => {
+    this.props.addQuantity(id);
+  };
+
+  // handleRemoveQuantity = id => {
+  //   this.props.removeQuantity(id);
+  // };
+
+  // handleRemove = id => {
+  //   this.props.remove(id);
+  // };
+
   render() {
-    debugger;
     let addedItems = this.props.items.length ? (
       this.props.items.map(item => {
         return (
@@ -24,13 +36,26 @@ class Cart extends Component {
               </p>
               <div className="add-remove">
                 <Link to="/cart">
-                  <i className="material-icons">arrow_drop_up</i>
+                  <i
+                    onClick={this.handleAddQuantity(item.id)}
+                    className="material-icons"
+                  >
+                    arrow_drop_up
+                  </i>
                 </Link>
                 <Link to="/cart">
-                  <i className="material-icons">arrow_drop_down</i>
+                  <i
+                    // onClick={this.handleRemoveQuantity(item.id)}
+                    className="material-icons"
+                  >
+                    arrow_drop_down
+                  </i>
                 </Link>
               </div>
-              <button className="waves-effect waves-light btn pink remove">
+              <button
+                // onClick={this.handleRemove(item.id)}
+                className="waves-effect waves-light btn pink remove"
+              >
                 Remove
               </button>
             </div>
@@ -57,7 +82,15 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    addQuantity: id => dispatch(addQuantity(id))
+    // removeQuantity: id => dispatch(removeQuantity(id)),
+    // remove: id => dispatch(remove(id))
+  };
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Cart);

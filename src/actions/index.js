@@ -26,9 +26,19 @@ export const addToCart = item => {
         "http://localhost:5001/react-redux-router/us-central1/addItem",
         { item }
       );
-      debugger;
       dispatch({ type: "ITEM_ADDED", payload: addItem.data.cart });
       history.push("/cart");
     } catch (error) {}
   };
 };
+
+export const addQuantity = id => {
+  return async dispatch => {
+    const add = await axios.post("", { id });
+    dispatch({ type: "QUANTITY_ADDED" });
+  };
+};
+
+export const removeQuantity = id => {};
+
+export const remove = id => {};

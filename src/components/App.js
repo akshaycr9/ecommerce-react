@@ -1,12 +1,13 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch, Router } from "react-router-dom";
+import history from "../history";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import Cart from "./Cart";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <div>
         <Navbar />
         <Switch>
@@ -14,7 +15,7 @@ const App = () => {
           <Route exact path="/cart" component={Cart} />
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 };
 

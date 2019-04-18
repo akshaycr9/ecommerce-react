@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "../history";
 
 export const fetchItems = () => {
   return async dispatch => {
@@ -25,7 +26,9 @@ export const addToCart = item => {
         "http://localhost:5001/react-redux-router/us-central1/addItem",
         { item }
       );
-      dispatch({ type: "ITEM_ADDED", payload: addItem });
+      debugger;
+      dispatch({ type: "ITEM_ADDED", payload: addItem.data.cart });
+      history.push("/cart");
     } catch (error) {}
   };
 };

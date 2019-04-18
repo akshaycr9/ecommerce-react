@@ -9,19 +9,37 @@ admin.initializeApp({
 const firestore = admin.firestore();
 
 exports.addItem = functions.https.onRequest(async (req, res) => {
-  if (req.body.item) {
-    const userRef = firestore.collection("users").doc("R7dwp5Xqyt3LLqQYN7tQ");
-    const user = await userRef.get();
-    const userData = user.data();
-    if (userData.cartItems.length > 0) {
+  try {
+    if (req.body.item) {
+      const userRef = firestore.collection("users").doc("R7dwp5Xqyt3LLqQYN7tQ");
+      const user = await userRef.get();
+      const userData = user.data();
+      if (userData.cartItems.length > 0) {
+        const findItem = userData.cartItems.find(id => id === req.body.item.id);
+        if (findItem) {
+        } else {
+          console.log("new item");
+          var item = { ...req.body.item, quantity: 1 };
+          await userRef.update(
+            {
+              cartItems: admin.firestore.FieldValue.arrayUnion(item)
+            },
+            { merge: true }
+          );
+          res.send({ status: 1, cart: item });
+        }
+      } else {
+        var item = { ...req.body.item, quantity: 1 };
+        await userRef.update({
+          cartItems: [item]
+        });
+      }
+      res.send({ status: 1, cart: item });
     } else {
-      var item = { ...req.body.item, quantity: 1 };
-      await userRef.update({
-        cartItems: [item]
-      });
+      res.send({ status: 0 });
     }
-    res.send({ status: 1, cart: item });
-  } else {
+  } catch (error) {
+    console.log("error is", error);
     res.send({ status: 0 });
   }
 });

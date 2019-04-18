@@ -7,7 +7,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "ITEM_ADDED":
       debugger;
-      return { ...state, addedItems: action.payload };
+      return { ...state, addedItems: [...state.addedItems, action.payload] };
     default:
       return state;
   }

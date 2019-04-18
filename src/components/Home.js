@@ -17,8 +17,8 @@ class Home extends Component {
     return true;
   };
 
-  handleClick = id => {
-    this.props.addToCart(id);
+  handleClick = item => {
+    this.props.addToCart(item);
   };
 
   render() {
@@ -31,7 +31,7 @@ class Home extends Component {
               to="/"
               className="btn-floating halfway-fab waves-effect waves-light red"
               onClick={() => {
-                this.handleClick(item.id);
+                this.handleClick(item);
               }}
             >
               <i className="material-icons">add</i>

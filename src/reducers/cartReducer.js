@@ -1,12 +1,13 @@
-INITIAL_STATE = {
+let INITIAL_STATE = {
   addedItems: [],
   total: 0
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
-      let addedItem = state.items.find(item => item.id === action.id);
+    case "ITEM_ADDED":
+      debugger;
+      return { ...state, addedItems: action.payload };
     default:
       return state;
   }

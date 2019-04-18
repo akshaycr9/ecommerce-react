@@ -18,9 +18,14 @@ export const fetchItems = () => {
   };
 };
 
-export const addToCart = id => {
-  return {
-    type: "ADD_TO_CART",
-    payload: id
+export const addToCart = item => {
+  return async dispatch => {
+    try {
+      const addItem = await axios.post(
+        "http://localhost:5001/react-redux-router/us-central1/addItem",
+        { item }
+      );
+      dispatch({ type: "ITEM_ADDED", payload: addItem });
+    } catch (error) {}
   };
 };

@@ -10,4 +10,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
+export var firestore = firebase.firestore();
+
 export default firebase;

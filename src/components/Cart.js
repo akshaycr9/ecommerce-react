@@ -8,9 +8,9 @@ class Cart extends Component {
     this.props.addQuantity(id);
   };
 
-  // handleRemoveQuantity = id => {
-  //   this.props.removeQuantity(id);
-  // };
+  handleRemoveQuantity = id => {
+    this.props.removeQuantity(id);
+  };
 
   // handleRemove = id => {
   //   this.props.remove(id);
@@ -45,7 +45,7 @@ class Cart extends Component {
                 </Link>
                 <Link to="/cart">
                   <i
-                    // onClick={this.handleRemoveQuantity(item.id)}
+                    onClick={this.handleRemoveQuantity(item.id)}
                     className="material-icons"
                   >
                     arrow_drop_down
@@ -84,8 +84,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addQuantity: id => dispatch(addQuantity(id))
-    // removeQuantity: id => dispatch(removeQuantity(id)),
+    addQuantity: id => dispatch(addQuantity(id)),
+    removeQuantity: id => dispatch(removeQuantity(id))
     // remove: id => dispatch(remove(id))
   };
 };

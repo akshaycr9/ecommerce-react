@@ -3,6 +3,7 @@ import history from "../history";
 
 export const fetchItems = () => {
   return async dispatch => {
+    dispatch({ type: "LOADING" });
     try {
       const items = await axios.get("https://grain.com.sg/menu.json");
       delete items.data["bundle_templates"];
@@ -21,6 +22,7 @@ export const fetchItems = () => {
 
 export const addToCart = item => {
   return async dispatch => {
+    dispatch({ type: "LOADING" });
     try {
       const addItem = await axios.post(
         "http://localhost:5001/react-redux-router/us-central1/addItem",
@@ -34,11 +36,24 @@ export const addToCart = item => {
 
 export const addQuantity = id => {
   return async dispatch => {
-    const add = await axios.post("", { id });
-    dispatch({ type: "QUANTITY_ADDED" });
+    dispatch({ type: "LOADING" });
+    const add = await axios.post(
+      "http://localhost:5001/react-redux-router/us-central1/addQuantity",
+      { id }
+    );
+    dispatch({ type: "QUANTITY_ADDED", payload: add.data.cart });
   };
 };
 
-export const removeQuantity = id => {};
+export const removeQuantity = id => {
+  return async dispatch => {
+    dispatch({ type: "LOADING" });
+    const remove = await axios.post(
+      "http://localhost:5001/react-redux-router/us-central1/removeQuantity",
+      { id }
+    );
+    dispatch({ type: "QUANTITY_REMOVED", payload: remove.data.cart });
+  };
+};
 
 export const remove = id => {};

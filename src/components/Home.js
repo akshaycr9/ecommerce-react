@@ -4,7 +4,9 @@ import { fetchItems, addToCart } from "../actions";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchItems();
+    if (!this.props.items.length > 0) {
+      this.props.fetchItems();
+    }
   }
 
   checkEmptyObject = obj => {
@@ -73,8 +75,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchItems: () => dispatch(fetchItems()),
-    addToCart: id => dispatch(addToCart(id))
+    fetchItems: () => {
+      dispatch(fetchItems());
+    },
+    addToCart: id => {
+      dispatch(addToCart(id));
+    }
   };
 };
 

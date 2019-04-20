@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { addQuantity, removeQuantity, remove } from "../actions";
+import {
+  addQuantity,
+  removeQuantity,
+  remove,
+  fetchCartItems
+} from "../actions";
 
 class Cart extends Component {
-  handleAddQuantity = id => {
-    this.props.addQuantity(id);
-  };
-
-  handleRemoveQuantity = id => {
-    this.props.removeQuantity(id);
-  };
-
   // handleRemove = id => {
   //   this.props.remove(id);
   // };
+
+  componentWillMount() {
+    this.props.fetchCartItems();
+  }
 
   render() {
     let addedItems = this.props.items.length ? (
@@ -37,7 +38,7 @@ class Cart extends Component {
               <div className="add-remove">
                 <Link to="/cart">
                   <i
-                    onClick={this.handleAddQuantity(item.id)}
+                    onClick={() => this.props.addQuantity(item.id)}
                     className="material-icons"
                   >
                     arrow_drop_up
@@ -45,7 +46,7 @@ class Cart extends Component {
                 </Link>
                 <Link to="/cart">
                   <i
-                    onClick={this.handleRemoveQuantity(item.id)}
+                    onClick={() => this.props.removeQuantity(item.id)}
                     className="material-icons"
                   >
                     arrow_drop_down
@@ -53,7 +54,7 @@ class Cart extends Component {
                 </Link>
               </div>
               <button
-                // onClick={this.handleRemove(item.id)}
+                onClick={() => this.props.remove(item.id)}
                 className="waves-effect waves-light btn pink remove"
               >
                 Remove
@@ -84,9 +85,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchCartItems: () => dispatch(fetchCartItems()),
     addQuantity: id => dispatch(addQuantity(id)),
-    removeQuantity: id => dispatch(removeQuantity(id))
-    // remove: id => dispatch(remove(id))
+    removeQuantity: id => dispatch(removeQuantity(id)),
+    remove: id => dispatch(remove(id))
   };
 };
 

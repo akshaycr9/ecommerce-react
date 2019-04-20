@@ -47,6 +47,21 @@ exports.addItem = functions.https.onRequest(async (req, res) => {
   }
 });
 
+exports.fetchCartItems = functions.https.onRequest(async (req, res) => {
+  const items = [];
+  const userId = firestore.collection("users").doc("R7dwp5Xqyt3LLqQYN7tQ").id;
+  const getAllItems = await firestore
+    .collection("carts")
+    .where("userId", "==", userId)
+    .get();
+  if (getAllItems.docs.length > 0) {
+    getAllItems.docs.forEach(item => {
+      items.push(item.data());
+    });
+  }
+  res.send({ status: 1, items });
+});
+
 exports.addQuantity = functions.https.onRequest(async (req, res) => {
   try {
     const { id } = req.body;
@@ -65,12 +80,17 @@ exports.addQuantity = functions.https.onRequest(async (req, res) => {
         .update({
           quantity: itemData.quantity + 1
         });
-      const getUpdatedItem = await firestore
+      const getAllItems = await firestore
         .collection("carts")
-        .doc(itemId)
+        .where("userId", "==", userId)
         .get();
-      const updatedItemData = getUpdatedItem.data();
-      res.send({ status: 1, cart: updatedItemData });
+      const allItems = [];
+      if (getAllItems.docs.length > 0) {
+        getAllItems.docs.forEach(item => {
+          allItems.push(item.data());
+        });
+      }
+      res.send({ status: 1, cart: allItems });
     }
   } catch (error) {
     console.log("error is", error);
@@ -96,15 +116,57 @@ exports.removeQuantity = functions.https.onRequest(async (req, res) => {
         .update({
           quantity: itemData.quantity - 1
         });
-      const getUpdatedItem = await firestore
+      const getAllItems = await firestore
         .collection("carts")
-        .doc(itemId)
+        .where("userId", "==", userId)
         .get();
-      const updatedItemData = getUpdatedItem.data();
-      res.send({ status: 1, cart: updatedItemData });
+      const allItems = [];
+      if (getAllItems.docs.length > 0) {
+        getAllItems.docs.forEach(item => {
+          allItems.push(item.data());
+        });
+      }
+      res.send({ status: 1, cart: allItems });
     }
   } catch (error) {
     console.log("error is", error);
+    res.send({ status: 0 });
+  }
+});
+
+exports.removeItem = functions.https.onRequest(async (req, res) => {
+  try {
+    const { id } = req.body;
+    const userId = firestore.collection("users").doc("R7dwp5Xqyt3LLqQYN7tQ").id;
+    if (id) {
+      const getItem = await firestore
+        .collection("carts")
+        .where("userId", "==", userId)
+        .where("id", "==", id)
+        .get();
+      if (getItem.docs.length > 0) {
+        const itemId = getItem.docs[0].id;
+        await firestore
+          .collection("carts")
+          .doc(itemId)
+          .delete();
+      }
+      const getAllItems = await firestore
+        .collection("carts")
+        .where("userId", "==", userId)
+        .get();
+      const allItems = [];
+      if (getAllItems.docs.length > 0) {
+        getAllItems.docs.forEach(item => {
+          allItems.push(item.data());
+        });
+      }
+      res.send({ status: 1, cart: allItems });
+    } else {
+      res.send({ status: 0 });
+    }
+  } catch (error) {
+    console.error("error is", error);
     res.send({ status: 0 });
   }
 });

@@ -1,0 +1,37 @@
+[debug] [2019-04-20T15:45:42.494Z] ----------------------------------------------------------------------
+[debug] [2019-04-20T15:45:42.496Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-04-20T15:45:42.497Z] CLI Version:   6.6.0
+[debug] [2019-04-20T15:45:42.497Z] Platform:      darwin
+[debug] [2019-04-20T15:45:42.497Z] Node Version:  v10.14.0
+[debug] [2019-04-20T15:45:42.497Z] Time:          Sat Apr 20 2019 21:15:42 GMT+0530 (India Standard Time)
+[debug] [2019-04-20T15:45:42.498Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-20T15:45:42.508Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-20T15:45:42.509Z] > authorizing via signed-in user
+[debug] [2019-04-20T15:45:42.509Z] [iam] checking project react-redux-router for permissions ["firebase.projects.get"]
+[debug] [2019-04-20T15:45:42.511Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/react-redux-router:testIamPermissions  
+
+[debug] [2019-04-20T15:45:44.344Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-20T15:45:44.348Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/react-redux-router  
+ 
+[debug] [2019-04-20T15:45:46.077Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/akshaycr9/projects/ecommerce-web'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-04-20T15:45:46.675Z] Fetching environment
+[debug] [2019-04-20T15:45:46.678Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/971032575992:getServerAppConfig  
+ 
+[debug] [2019-04-20T15:45:46.679Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/971032575992/clients/_:getWebAppConfig  
+ 
+[debug] [2019-04-20T15:45:47.203Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-20T15:45:47.204Z] Starting @google-cloud/functions-emulator
+[debug] [2019-04-20T15:45:47.321Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-04-20T15:45:48.781Z] Parsing function triggers
+[info] ✔  functions: fetchCartItems: http://localhost:5001/react-redux-router/us-central1/fetchCartItems
+[info] ✔  functions: addItem: http://localhost:5001/react-redux-router/us-central1/addItem
+[info] ✔  functions: removeItem: http://localhost:5001/react-redux-router/us-central1/removeItem
+[info] ✔  functions: removeQuantity: http://localhost:5001/react-redux-router/us-central1/removeQuantity
+[info] ✔  functions: addQuantity: http://localhost:5001/react-redux-router/us-central1/addQuantity

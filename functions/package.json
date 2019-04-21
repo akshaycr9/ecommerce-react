@@ -11,6 +11,7 @@
   "dependencies": {
     "firebase-admin": "^7.0.0",
     "firebase-functions": "^2.2.0",
+    "lodash": "^4.17.11",
     "react-redux-loading-bar": "^4.2.0",
     "redux-logger": "^3.0.6"
   },

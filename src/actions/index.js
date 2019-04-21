@@ -28,11 +28,17 @@ export const fetchCartItems = () => {
     try {
       dispatch(showLoading());
       const cartItems = await axios.get(
-        "https://us-central1-react-redux-router.cloudfunctions.net/fetchCartItems"
+        "http://localhost:5001/react-redux-router/us-central1/fetchCartItems"
       );
-      dispatch({ type: "FETCHED_CART_ITEMS", cartItems: cartItems.data.items });
+      dispatch({ type: "FETCHED_CART_ITEMS", payload: cartItems.data });
       dispatch(hideLoading());
-    } catch (error) {}
+    } catch (error) {
+      dispatch({
+        type: "ERROR_LOADING_ITEMS",
+        error: "Please enable CORS in your browser and reload!"
+      });
+      dispatch(hideLoading());
+    }
   };
 };
 
@@ -41,7 +47,7 @@ export const addToCart = item => {
     try {
       dispatch(showLoading());
       const addItem = await axios.post(
-        "https://us-central1-react-redux-router.cloudfunctions.net/addItem",
+        "http://localhost:5001/react-redux-router/us-central1/addItem",
         { item }
       );
       dispatch({ type: "ITEM_ADDED", payload: addItem.data.cart });
@@ -55,11 +61,11 @@ export const addQuantity = id => {
   return async dispatch => {
     dispatch(showLoading());
     const add = await axios.post(
-      "https://us-central1-react-redux-router.cloudfunctions.net/addQuantity",
+      "http://localhost:5001/react-redux-router/us-central1/addQuantity",
       { id }
     );
 
-    dispatch({ type: "QUANTITY_ADDED", payload: add.data.cart });
+    dispatch({ type: "QUANTITY_ADDED", payload: add.data });
     dispatch(hideLoading());
   };
 };
@@ -68,10 +74,10 @@ export const removeQuantity = id => {
   return async dispatch => {
     dispatch(showLoading());
     const remove = await axios.post(
-      "https://us-central1-react-redux-router.cloudfunctions.net/removeQuantity",
+      "http://localhost:5001/react-redux-router/us-central1/removeQuantity",
       { id }
     );
-    dispatch({ type: "QUANTITY_REMOVED", payload: remove.data.cart });
+    dispatch({ type: "QUANTITY_REMOVED", payload: remove.data });
     dispatch(hideLoading());
   };
 };
@@ -80,10 +86,10 @@ export const remove = id => {
   return async dispatch => {
     dispatch(showLoading());
     const removeItem = await axios.post(
-      "https://us-central1-react-redux-router.cloudfunctions.net/removeItem",
+      "http://localhost:5001/react-redux-router/us-central1/removeItem",
       { id }
     );
-    dispatch({ type: "ITEM_REMOVED", payload: removeItem.data.cart });
+    dispatch({ type: "ITEM_REMOVED", payload: removeItem.data });
     dispatch(hideLoading());
   };
 };

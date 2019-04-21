@@ -5,8 +5,12 @@ let INITIAL_STATE = {
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "LOADING":
-      return { ...state };
+    case "FETCHED_CART_ITEMS":
+      return {
+        ...state,
+        addedItems: action.payload.items,
+        total: action.payload.total
+      };
     case "ITEM_ADDED":
       let existingItem = state.addedItems.find(
         item => item.id === action.payload.id
@@ -21,13 +25,23 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         };
       }
     case "QUANTITY_ADDED":
-      return { ...state, addedItems: action.payload };
+      return {
+        ...state,
+        addedItems: action.payload.cart,
+        total: action.payload.total
+      };
     case "QUANTITY_REMOVED":
-      return { ...state, addedItems: action.payload };
-    case "FETCHED_CART_ITEMS":
-      return { ...state, addedItems: action.cartItems };
+      return {
+        ...state,
+        addedItems: action.payload.cart,
+        total: action.payload.total
+      };
     case "ITEM_REMOVED":
-      return { ...state, addedItems: action.payload };
+      return {
+        ...state,
+        addedItems: action.payload.cart,
+        total: action.payload.total
+      };
     default:
       return state;
   }

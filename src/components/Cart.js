@@ -9,10 +9,6 @@ import {
 } from "../actions";
 
 class Cart extends Component {
-  // handleRemove = id => {
-  //   this.props.remove(id);
-  // };
-
   componentWillMount() {
     this.props.fetchCartItems();
   }
@@ -71,6 +67,9 @@ class Cart extends Component {
         <div className="cart">
           <h5>You have ordered:</h5>
           <ul className="collection">{addedItems}</ul>
+          <div className="collection-item">
+            <b>Total: {this.props.total} $</b>
+          </div>
         </div>
       </div>
     );
@@ -79,7 +78,8 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.cart.addedItems
+    items: state.cart.addedItems,
+    total: state.cart.total
   };
 };
 

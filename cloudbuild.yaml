@@ -6,4 +6,4 @@ steps:
     args: ["build"]
 
   - name: "gcr.io/$PROJECT_ID/firebase"
-    args: ["deploy", "--only hosting"]
+    args: ["deploy --only hosting"]
